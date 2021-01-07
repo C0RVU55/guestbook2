@@ -67,7 +67,6 @@ public class GuestController extends HttpServlet {
 	
 				// 파라미터 받기 (addList에서 no 넘기기로 해놓고 여기서 안 받으니까 아무 것도 안 뜸. addList에서 오는 파라미터 받는 거 잊지 말기.)
 				int no = Integer.parseInt(request.getParameter("no"));
-				//request.setAttribute("no", no);
 				
 				// forward
 				RequestDispatcher rd2 = request.getRequestDispatcher("./WEB-INF/deleteForm.jsp");
