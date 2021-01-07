@@ -103,8 +103,8 @@ public class GuestDao {
 		return gList;
 	}
 
-	// 내용 삭제
-	public int contentDelete(int no) {
+	// 내용 삭제 (조건 2개 달아서 쿼리문 1개로 처리)
+	public int contentDelete(int no, String password) {
 
 		getConnection();
 
@@ -112,11 +112,12 @@ public class GuestDao {
 			// SQL문 준비 / 바인딩 / 실행
 			String query = "";
 			query += " delete from guestbook ";
-			query += " where no = ? ";
+			query += " where no = ? and password = ? ";
 
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, no);
+			pstmt.setString(2, password);
 
 			count = pstmt.executeUpdate();
 
@@ -159,48 +160,6 @@ public class GuestDao {
 		close();
 
 		return count;
-	}
-
-	// 내용 데이터 불러오기
-	public GuestVo getData(int no) {
-		GuestVo gVo = null; 
-
-		getConnection();
-
-		try {
-			String query = "";
-			query += " SELECT  no, ";
-			query += "         name, ";
-			query += "         password, ";
-			query += "         content, ";
-			query += "         to_char(reg_date, 'YYYY-MM-DD HH24:MI:SS') reg_date ";
-			query += " FROM guestbook ";
-			query += " where no = ? ";
-
-			pstmt = conn.prepareStatement(query);
-
-			pstmt.setInt(1, no);
-
-			rs = pstmt.executeQuery();
-
-			// 결과처리
-			while (rs.next()) {
-				int num = rs.getInt("no");
-				String name = rs.getString("name");
-				String password = rs.getString("password");
-				String content = rs.getString("content");
-
-				gVo = new GuestVo(num, name, password, content);
-			}
-
-		} catch (Exception e) {
-			System.out.println("error:" + e);
-		}
-
-		close();
-
-		return gVo;
-
 	}
 
 }
