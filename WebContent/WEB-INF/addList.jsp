@@ -7,8 +7,12 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	GuestDao gDao = new GuestDao();
-	List<GuestVo> gList = gDao.getList();
+	//System.out.println("시작");
+
+	List<GuestVo> gList = (List<GuestVo>)request.getAttribute("gList");
+	// Dao랑 list 새로 올리는 게 아니라 위처럼 attribute 받아야 됨.
+	// GuestDao gDao = new GuestDao();
+	// List<GuestVo> gList = gDao.getList();
 %>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@
 </head>
 <body>
 	<!-- *****입력창***** -->
-	<form action="/guestbook2/gbc" method="get"> <!-- form태그로 주소 보낼 때 action 따로 써야 됨. 주의. -->
+	<form action="/guestbook2/gbc" method="post"> <!-- form태그로 주소 보낼 때 action 따로 써야 됨. 주의. -->
 		<table border="1">
 			<tr>
 				<td>이름</td>
@@ -28,13 +32,15 @@
 				<td><input type="text" name="password"></td>
 			</tr>
 			<tr>
-				<td colspan="4"><textarea name="content"></textarea></td>
+				<td colspan="4"><textarea cols="50" rows="10" name="content"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="4"><button type="submit">확인</button> <!-- 숨은 action값--> <input type="hidden" name="action" value="add"> </td> 
+				<td colspan="4"><button type="submit">확인</button></td> 
 			</tr>
 		</table>
 		<br><br>
+		
+		<!-- 숨은 action값--> <input type="hidden" name="action" value="add"> 	
 	</form>
 	
 	<!-- *****출력 화면***** -->

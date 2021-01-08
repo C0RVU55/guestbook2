@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<form action="/guestbook2/gbc" method="get">
+	<form action="/guestbook2/gbc" method="post">
 	
 		비밀번호 <input type="text" name="password"> 
 		<button type="submit">확인</button>
