@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%-- 
 <%@ page import="java.util.List" %>
 <%@ page import="com.javaex.dao.GuestDao" %>
 <%@ page import="com.javaex.vo.GuestVo" %>
@@ -14,6 +17,7 @@
 	// GuestDao gDao = new GuestDao();
 	// List<GuestVo> gList = gDao.getList();
 %>
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -44,21 +48,21 @@
 	</form>
 	
 	<!-- *****출력 화면***** -->
-	<%for (int i = 0; i < gList.size(); i++) {  %>
+	<c:forEach items="${gList}" var="gList">
 	<table border="1">
 		<tr>
-			<td><%=gList.get(i).getNo() %></td>
-			<td><%=gList.get(i).getName() %></td>
-			<td><%=gList.get(i).getRegDate() %></td>
-			<td><a href="/guestbook2/gbc?action=dform&no=<%=gList.get(i).getNo()%>">삭제</a></td> 
-			<!-- 여기 주소 action=dform?no= 로 해서 계속 아무것도 안 뜸. 키=값끼리는 &로 묶이는 거 잊지 말기.-->
+			<td>${gList.no}</td>
+			<td>${gList.name}</td>
+			<td>${gList.regDate}</td>
+			<td><a href="/guestbook2/gbc?action=dform&no=${gList.no}">삭제</a></td> 
+			<%-- 여기 주소 action=dform?no= 로 해서 계속 아무것도 안 뜸. 키=값끼리는 &로 묶이는 거 잊지 말기. --%>
 		</tr>
 		<tr>
-			<td colspan="4"><%=gList.get(i).getContent()%></td>
+			<td colspan="4">${gList.content}</td>
 		</tr>
 	</table>
 	<br>
-	<%} %>
+	</c:forEach>
 
 </body>
 </html>
